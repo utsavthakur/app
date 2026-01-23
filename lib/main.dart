@@ -6,6 +6,7 @@ import 'package:aura_app/explore_page.dart';
 import 'package:aura_app/profile_page.dart';
 import 'package:aura_app/settings_page.dart';
 import 'package:aura_app/widgets/glass_container.dart';
+import 'package:aura_app/widgets/asteroid_fragments.dart';
 import 'package:aura_app/theme/app_colors.dart';
 
 import 'package:device_preview/device_preview.dart';
@@ -136,7 +137,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.midnightInk,
-      body: AnimatedBuilder(
+      body: AsteroidFragments(
+        child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
             final double animValue = _controller.value;
@@ -273,6 +275,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             );
           },
         ),
+      ),
     );
   }
 
