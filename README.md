@@ -16,4 +16,16 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 
+# 1. Open iOS simulator (on Mac)
+open -a Simulator
+
+# 2. Run your app on iOS
+flutter run -d ios
+
+# 3. Build for physical iPhone
+flutter build ios
+
+# 4. Build for App Store
+flutter build ipa
+
 

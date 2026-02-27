@@ -2,9 +2,30 @@
 import 'package:flutter/material.dart';
 import 'package:aura_app/widgets/glass_container.dart';
 import 'package:aura_app/theme/app_colors.dart';
+import 'package:aura_app/core/performance/optimized_image_manager.dart';
+import 'package:aura_app/core/error/error_handler.dart';
 
-class ExplorePage extends StatelessWidget {
+class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
+
+  @override
+  State<ExplorePage> createState() => _ExplorePageState();
+}
+
+class _ExplorePageState extends State<ExplorePage> {
+  @override
+  void initState() {
+    super.initState();
+    _preloadExploreImages();
+  }
+
+  Future<void> _preloadExploreImages() async {
+    final imageUrls = List.generate(20, (index) => "https://picsum.photos/300/400?random=$index");
+    await ErrorHandler.instance.guardAsync(
+      'ExploreImagePreload',
+      () => OptimizedImageManager.instance.preloadImages(imageUrls),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +67,11 @@ class ExplorePage extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      "https://picsum.photos/300/400?random=$index",
+                    OptimizedNetworkImage(
+                      imageUrl: "https://picsum.photos/300/400?random=$index",
+                      width: double.infinity,
+                      height: double.infinity,
                       fit: BoxFit.cover,
-                      color: AppColors.midnightInk.withOpacity(0.3),
-                      colorBlendMode: BlendMode.darken,
                     ),
                     const Positioned(
                       bottom: 10,

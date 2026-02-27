@@ -4,7 +4,14 @@ import 'package:aura_app/widgets/glass_container.dart';
 import 'package:aura_app/theme/app_colors.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final VoidCallback? onToggleSidebar;
+  final bool isRightSide;
+  
+  const SettingsPage({
+    super.key, 
+    this.onToggleSidebar,
+    this.isRightSide = true,
+  });
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -188,6 +195,16 @@ class _SettingsPageState extends State<SettingsPage> {
                 // Content Section
                 _buildSectionHeader('Content & Display'),
                 _buildSettingsGroup([
+                  _buildSettingItem(
+                     icon: Icons.dock_outlined,
+                     title: 'Sidebar Position',
+                     subtitle: widget.isRightSide ? 'Right Side' : 'Left Side',
+                     trailing: Icon(
+                        widget.isRightSide ? Icons.align_horizontal_right : Icons.align_horizontal_left,
+                        color: AppColors.photonBlue,
+                     ),
+                     onTap: widget.onToggleSidebar,
+                  ),
                   _buildSettingItem(
                     icon: Icons.play_circle_outline,
                     title: 'Auto-play Videos',
